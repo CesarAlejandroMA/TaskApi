@@ -9,6 +9,17 @@ builder.Services.AddDbContext<TaskDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+//Ajuste de CORS para HTTPS
+builder.Services.AddCors(p =>
+    p.AddDefaultPolicy(b =>
+        b.WithOrigins(
+            "http://localhost:5173",   // ? frontend Vite (HTTP)
+            "https://localhost:5173"   // ? HTTPS en Vite
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -24,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

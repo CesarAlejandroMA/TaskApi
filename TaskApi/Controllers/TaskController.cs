@@ -78,10 +78,23 @@ namespace TaskApi.Controllers
         [HttpPost]
         public async Task<ActionResult<TaskItem>> PostTaskItem(TaskItem taskItem)
         {
+            // 1. trim localmente
+            taskItem.Title = taskItem.Title?.Trim();
+
+            // 2. vacío o null
+            if (string.IsNullOrWhiteSpace(taskItem.Title))
+                return BadRequest("El título es obligatorio.");
+
+            // 3. duplicado
+            bool exists = await _context.TaskItems
+                            .AnyAsync(t => t.Title == taskItem.Title);
+            if (exists)
+                return Conflict("Ya existe una tarea con ese título.");
+
             _context.TaskItems.Add(taskItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTaskItem", new { id = taskItem.Id }, taskItem);
+            return CreatedAtAction(nameof(GetTaskItem), new { id = taskItem.Id }, taskItem);
         }
 
         // DELETE: api/Task/5
