@@ -54,7 +54,7 @@ const stillLoading = isLoading || (isFetching && data.length === 0);
       {data.map((t) => (
         <li
           key={t.id}
-          className="flex items-center justify-between bg-slate-200 text-slate-800 p-3 rounded-lg shadow"
+          className="flex items-center justify-between bg-white border border-slate-300 p-3 rounded-lg shadow-sm"
         >
           <label className="flex items-center gap-2">
             <input
@@ -63,12 +63,12 @@ const stillLoading = isLoading || (isFetching && data.length === 0);
               checked={t.isCompleted}
               onChange={() => toggle.mutate(t)}
             />
-            <span className={t.isCompleted ? "line-through" : ""}>{t.title}</span>
+            <span className={t.isCompleted ? "line-through text-slate-400" : ""}>{t.title}</span>
           </label>
 
           <button
             onClick={() => remove.mutate(t.id)}
-            className="ml-2 text-red-600 hover:underline"
+            className="ml-2 text-red-500 hover:text-red-700"
             title="Eliminar tarea"
           >
             🗑️

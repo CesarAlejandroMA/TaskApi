@@ -28,11 +28,11 @@ export default function TaskForm() {
       <input
         {...register("title")}
         placeholder="Nueva tarea…"
-        className="flex-1 rounded border border-slate-400 bg-slate-100 text-slate-800 px-3 py-2"
+        className="flex-1 rounded border border-slate-300 bg-white px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none"
       />
       <button
         type="submit"
-        className="rounded bg-blue-600 px-4 py-2 text-slate-100 hover:bg-blue-700"
+        className="rounded bg-blue-600 px-4 py-2 text-white font-medium hover:bg-blue-700 active:bg-blue-800"
       >
         Añadir
       </button>
